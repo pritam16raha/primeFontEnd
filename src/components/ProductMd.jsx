@@ -1,14 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FaStar, FaHeart, FaMinus, FaPlus } from "react-icons/fa6";
 import { ShopContext } from "../context/ShopContext";
 import { LuMoveUpRight } from "react-icons/lu";
 import { useNavigate } from "react-router-dom";
 import { BackendDomain } from "../common/domain";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetails } from "../redux/actions/productAction";
 
 const ProductMd = (props) => {
   const { product } = props;
   const { addToCart, removeFromCart, cartItems } = useContext(ShopContext);
   const navigate = useNavigate();
+
+  // console.log("productId is", loading);
+
+  // const dispatch = useDispatch();
+
+  // const { loading, error } = useSelector((state) => state.productDetails);
+  // console.log("Current product is", product)
+
+  // useEffect(() => {
+  //   dispatch(getProductDetails(props._id))
+  // }, [dispatch])
 
   return (
     <section className="max-padd-container flex flex-col gap-8 xl:flex-row bg-primary py-4">
@@ -16,29 +29,29 @@ const ProductMd = (props) => {
       <div className="flex gap-x-2 xl:flex-1 py-5">
         <div className="flexCenter flex-col gap-[7px] flex-wrap">
           <img
-            src={`${BackendDomain}/images/`+product.image}
+            src={`${BackendDomain}/images/` + product.image}
             alt="productImg"
             className="max-h-[89px] rounded-lg bg-white object-cover"
           />
           <img
-            src={`${BackendDomain}/images/`+product.image}
+            src={`${BackendDomain}/images/` + product.image}
             alt="productImg"
             className="max-h-[89px] rounded-lg bg-white object-cover"
           />
           <img
-            src={`${BackendDomain}/images/`+product.image}
+            src={`${BackendDomain}/images/` + product.image}
             alt="productImg"
             className="max-h-[89px] rounded-lg bg-white object-cover"
           />
           <img
-            src={`${BackendDomain}/images/`+product.image}
+            src={`${BackendDomain}/images/` + product.image}
             alt="productImg"
             className="max-h-[89px] rounded-lg bg-white object-cover"
           />
         </div>
         <div className="max-h-[377px] w-auto flex">
           <img
-            src={`${BackendDomain}/images/`+product.image}
+            src={`${BackendDomain}/images/` + product.image}
             alt="bigImg"
             className="rounded-xl bg-white object-cover"
           />

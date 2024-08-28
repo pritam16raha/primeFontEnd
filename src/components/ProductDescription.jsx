@@ -1,6 +1,12 @@
 import React from 'react'
 
-const ProductDescription = () => {
+const ProductDescription = (props) => {
+
+  const { product } = props
+
+  // console.log("Description", props)
+
+
   return (
     <div className='max-padd-container mt-20'>
         <div className='flex gap-3 mb-4'>
@@ -9,8 +15,8 @@ const ProductDescription = () => {
             <button className='btn-dark-outline rounded-sm !text-xs !py-[6px] w-36'>Size Guide</button>
         </div>
         <div className='flex flex-col pb-16'>
-            <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae dicta adipisci nihil deserunt delectus? Dignissimos, numquam eum, voluptates reiciendis ipsa maxime enim quasi praesentium est totam neque dolores quam placeat commodi corporis repudiandae repellat assumenda amet doloremque modi! Non magnam id animi eveniet aperiam minus itaque voluptate voluptas! At aliquid fugit, hic consectetur itaque similique?</p>
-            <p className='text-sm'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laborum optio iusto alias maiores obcaecati tempora, error beatae, aperiam, nisi recusandae illum. Eveniet, magnam ab dolorem possimus tenetur vel!</p>
+            <p className='text-sm'>{product.description}</p>
+            <p className='text-sm'></p>
         </div>
     </div>
   )

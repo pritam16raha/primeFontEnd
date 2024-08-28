@@ -31,7 +31,7 @@ export default function App() {
       <Header setShowLogin={setShowLogin}/>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/product" element={<Product />}>
+        <Route path="/product" >
           <Route path=":productId" element={<Product />} />
         </Route>
         <Route path="/myaccount" element={<MyAccount user={user}/>}/>

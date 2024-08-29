@@ -3,10 +3,21 @@ import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import {useNavigate} from "react-router-dom"
 import { BackendDomain } from "../common/domain";
+import { useDispatch, useSelector } from "react-redux";
 
 const Order = () => {
-  const { getTotalCartAmount, all_products, token, cartItems} =
+  const {  token } =
     useContext(ShopContext);
+
+    const dispatch = useDispatch();
+
+    const { all_products } = useSelector((state) => state.all_products)
+
+    const cartItems = localStorage.getItem("cart")
+
+    const getTotalCartAmount = (cartItems) => {
+      return cartItems.reduce((total, item) => total + item.price, 0)
+    };
 
     const [data, setData] = useState({
       firstName:"",

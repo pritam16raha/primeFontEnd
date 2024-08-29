@@ -6,15 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { BackendDomain } from "../common/domain";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../redux/actions/productAction";
+import { addItemsToCart } from "../redux/actions/cartAction";
 
 const ProductMd = (props) => {
   const { product } = props;
-  const { addToCart, removeFromCart, cartItems } = useContext(ShopContext);
+  const {  removeFromCart, cartItems } = useContext(ShopContext);
   const navigate = useNavigate();
 
-  // console.log("productId is", loading);
+  console.log("productId is", product);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // const { loading, error } = useSelector((state) => state.productDetails);
   // console.log("Current product is", product)
@@ -22,6 +23,11 @@ const ProductMd = (props) => {
   // useEffect(() => {
   //   dispatch(getProductDetails(props._id))
   // }, [dispatch])
+
+  const addToCart = () => {
+    dispatch(addItemsToCart(product._id)) //quantity will send later
+    // alert.success("Item added to cart")
+  }
 
   return (
     <section className="max-padd-container flex flex-col gap-8 xl:flex-row bg-primary py-4">

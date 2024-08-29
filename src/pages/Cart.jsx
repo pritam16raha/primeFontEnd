@@ -3,14 +3,33 @@ import { ShopContext } from "../context/ShopContext";
 import { TbTrash } from "react-icons/tb";
 import { useNavigate } from "react-router-dom"
 import { BackendDomain } from "../common/domain";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeItemsFromCart } from "../redux/actions/cartAction";
+
 
 const Cart = () => {
 
   const navigate = useNavigate();
-  const { cartItems, all_products, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
-  const cart = useSelector(state=> state.cart);
-  console.log("cart is", cart)
+  // const { all_products, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+  
+
+  //redux
+
+  const dispatach = useDispatch();
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const getTotal = (cartItems) => {
+    return cartItems.reduce((total, item) => total + item.price, 0)
+  };
+  
+  const removeFromCart = (id) => {
+    dispatach(removeItemsFromCart(id))
+  }
+
+
+  // console.log("cart is", )
+
   return (
     <section className="max-padd-container pt-20">
       <div className="py-10">
@@ -26,16 +45,17 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {all_products.map((product) => {
-              if (cartItems?.[product._id] > 0) {
+            {cartItems.map((product, index) => {
+               
                 return (
                   <tr
-                    key={product._id}
+                    key={index}
                     className="border-b border-slate-900/20 text-gray-50 p-6 medium-14 text-left"
                   >
                     <td className="p-1">
                       <img
-                        src={`${BackendDomain}/images/`+product.image}
+                        // src={`${BackendDomain}/images/`+product?.image}
+                        src={product?.image}
                         alt="productImg"
                         height={38}
                         width={38}
@@ -43,26 +63,24 @@ const Cart = () => {
                       />
                     </td>
                     <td className="p-1">
-                      <div className="line-clamp-3">{product.name}</div>
+                      <div className="line-clamp-3">{product?.name}</div>
                     </td>
-                    <td className="p-1">{product.price}</td>
-                    <td className="p-1">{cartItems?.[product._id]}</td>
+                    <td className="p-1">{product?.price}</td>
+                    <td className="p-1">{cartItems?.[product?.product]}</td>
                     <td className="p-1">
-                      ${product.price * cartItems?.[product._id]}
+                    ₹ {product?.price * 1}
                     </td>
                     <td className="p-1">
                       <div className="bold-22">
                         <TbTrash
                           onClick={() => {
-                            removeFromCart(product._id);
+                            removeFromCart(product.product);
                           }}
                         />
                       </div>
                     </td>
                   </tr>
                 );
-              }
-              return null;
             })}
           </tbody>
         </table>
@@ -73,17 +91,17 @@ const Cart = () => {
             <div>
               <div className="flexBetween py-3">
                 <h4 className="medium-16">Subtotal:</h4>
-                <h4 className="text-gray-30 font-semibold">${getTotalCartAmount()}</h4>
+                <h4 className="text-gray-30 font-semibold">₹{}</h4>
               </div>
               <hr />
               <div className="flexBetween py-3">
                 <h4 className="medium-16">Shipping Fee:</h4>
-                <h4 className="text-gray-30 font-semibold">${getTotalCartAmount()===0?0:2}</h4>
+                <h4 className="text-gray-30 font-semibold">₹{}</h4>
               </div>
               <hr />
               <div className="flexBetween py-3">
                 <h4 className="medium-18">Total:</h4>
-                <h4 className="bold-18">${getTotalCartAmount()===0?0:getTotalCartAmount()+2}</h4>
+                <h4 className="bold-18">{getTotal(cartItems)}</h4>
               </div>
             </div>
             <button onClick={()=> navigate('/order')}  className="btn-secondary w-52 rounded">Proceed to Checkout</button>
